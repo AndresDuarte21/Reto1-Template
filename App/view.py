@@ -39,11 +39,8 @@ operación solicitada
 
 
 def new_controller():
-    """
-        Se crea una instancia del controlador
-    """
-    #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    pass
+    control = controller.new_controller()
+    return control
 
 
 def print_menu():
@@ -59,14 +56,13 @@ def print_menu():
     print("9- Ejecutar Requerimiento 8")
     print("0- Salir")
 
-
 def load_data(control):
     """
     Carga los datos
     """
-    #TODO: Realizar la carga de datos
-    pass
-
+    print("Cargando información")
+    jobs, skills, employment_types, multilocations = controller.load_data(control)
+    return jobs, skills, employment_types, multilocations
 
 def print_data(control, id):
     """
@@ -154,7 +150,14 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
-            data = load_data(control)
+            #New code
+            controller.create_list(control, 'ARRAY_LIST')
+            
+            jobs, skills, employment_types, multilocations = load_data(control)
+            print(f"Se han cargado {jobs} ofertas de trabajo.")
+            print(f"Se han cargado {skills} skills.")
+            print(f"Se han cargado {employment_types} tipos de trabajo.")
+            print(f"Se han cargado {multilocations} multi-locaciones.")
         elif int(inputs) == 2:
             print_req_1(control)
 

@@ -24,6 +24,7 @@ import config as cf
 import model
 import time
 import csv
+import os
 
 
 """
@@ -32,21 +33,64 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 
 def new_controller():
+    
+    control = {'model': None}
+    control['model'] = model.new_catalog()
+    return control
+
+
+
+
+def load_data(control):
     """
-    Crea una instancia del modelo
+    Carga los datos del reto
     """
-    #TODO: Llamar la función del modelo que crea las estructuras de datos
-    pass
+    catalog = control
+    jobs = load_jobs(catalog)
+    skills = load_skills(catalog)
+    employment_types = load_employment_types(catalog)
+    multilocations = load_multilocations(catalog)
+    
+    return jobs, skills, employment_types, multilocations
 
 
 # Funciones para la carga de datos
 
-def load_data(control, filename):
-    """
-    Carga los datos del reto
-    """
-    # TODO: Realizar la carga de datos
-    pass
+### FUNCIONES PROPIAS
+def create_list(catalog, structure):
+    model.create_list(catalog['model'], structure)
+    
+    
+def load_jobs(catalog):
+    jobs_file = cf.data_dir + "small-jobs.csv"
+    input_file = csv.DictReader(open(jobs_file, encoding='utf-8'))
+    for job in input_file:
+        model.add_job(catalog['model'], job)
+    return model.jobs_size(catalog['model'])
+
+def load_skills(catalog):
+    skills_file = cf.data_dir + 'small-skills.csv'
+    input_file = csv.DictReader(open(skills_file, encoding='utf-8'))
+    for skill in input_file:
+        model.add_skill(catalog['model'], skill)
+    return model.skills_size(catalog['model'])
+
+def load_employment_types(catalog):
+    employment_types_file = cf.data_dir + 'small-employments_types.csv'
+    input_file = csv.DictReader(open(employment_types_file, encoding='utf-8'))
+    for employment_type in input_file:
+        model.add_employment_type(catalog['model'], employment_type)
+    return model.employment_type_size(catalog['model'])
+
+def load_multilocations(catalog):
+    multilocations_file = cf.data_dir + 'small-multilocations.csv'
+    input_file = csv.DictReader(open(multilocations_file, encoding='utf-8'))
+    for multilocation in input_file:
+        model.add_employment_type(catalog['model'], multilocation)
+    return model.employment_type_size(catalog['model'])
+
+### FIN DE FUNCIONES PROPIAS
+
 
 
 # Funciones de ordenamiento

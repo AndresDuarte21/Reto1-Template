@@ -40,6 +40,50 @@ assert cf
 Se define la estructura de un catálogo de videos. El catálogo tendrá
 dos listas, una para los videos, otra para las categorias de los mismos.
 """
+### NUEVAS FUNCIONES
+def new_catalog():
+    catalog = {'jobs': None,
+               'skills': None,
+               'employment_type': None} # Falta añadir las demás cargas
+    return catalog
+
+def create_list(catalog, structure):
+    catalog['jobs'] = lt.newList(datastructure=structure)
+    catalog['skills'] = lt.newList(datastructure=structure)
+    catalog['employment_type'] = lt.newList(datastructure=structure)
+    catalog['multilocations'] = lt.newList(datastructure=structure)
+    return catalog
+
+# JOBS
+def add_job(catalog, job):
+    lt.addLast(catalog['jobs'], job)
+    return catalog
+def jobs_size(catalog):
+    return lt.size(catalog['jobs'])
+
+# SKILLS
+def add_skill(catalog, skill):
+    lt.addLast(catalog['skills'], skill)
+    return catalog
+def skills_size(catalog):
+    return lt.size(catalog['skills'])
+
+# EMPLOYMENT TYPE
+def add_employment_type(catalog, employment_type):
+    lt.addLast(catalog['employment_type'], employment_type)
+    return catalog
+def employment_type_size(catalog):
+    return lt.size(catalog['employment_type'])
+
+def load_data(filename):
+    
+    #data = {"title": None, "street": None, "city": None, "country_code": None, "address_text":None, "marker_icon":None, "workplace_type":None, "company_name": None, "company_url":None}
+    
+    data = lt.newList(datastructure= "SINGLE_LINKED", filename=filename)
+### FIN DE FUNCIONES
+
+
+
 
 # Construccion de modelos
 
